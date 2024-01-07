@@ -2,7 +2,7 @@ import { TouchableOpacity, View, Text } from "react-native";
 import { colors } from "../../constants";
 
 const UiButton = (props) => {
-  const { title } = props;
+  const { title, color } = props;
   return (
     <TouchableOpacity
       style={{
@@ -15,8 +15,8 @@ const UiButton = (props) => {
         marginVertical: 10,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.inactive,
-        opacity: 0.3,
+        backgroundColor: color ? color : colors.inactive,
+        opacity: 0.8,
       }}
     >
       <Text

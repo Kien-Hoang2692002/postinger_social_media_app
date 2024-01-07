@@ -12,28 +12,41 @@ import {
 import { STORIES } from "../../data/stories";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import ProgressBar from "./ProgressBar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Stories = ({ props }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [currentStory, setCurrentStory] = useState(null);
   const [comment, setComment] = useState("");
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let timer;
     if (isModalVisible) {
-      timer = setTimeout(() => {
-        setModalVisible(false);
-      }, 5000); // Đặt thời gian hiển thị modal
+      timer = setInterval(() => {
+        setProgress((prevProgress) =>
+          prevProgress < 100 ? prevProgress + 0.5 : 100
+        );
+      }, 10);
     }
-
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   }, [isModalVisible]);
+
+  useEffect(() => {
+    // Reset progress when a new story is opened
+    setProgress(0);
+  }, [currentStory]);
 
   const openStory = (story) => {
     setCurrentStory(story);
     setModalVisible(true);
+  };
+
+  const handleStoryComplete = () => {
+    setModalVisible(false);
   };
 
   const handleComment = () => {
@@ -48,7 +61,9 @@ const Stories = ({ props }) => {
   };
 
   return (
-    <View style={{ flex: 30, flexDirection: "row", marginHorizontal: 8 }}>
+    <SafeAreaView
+      style={{ flex: 30, flexDirection: "row", marginHorizontal: 8 }}
+    >
       {/* Nút tạo story mới */}
       <View
         style={{
@@ -106,11 +121,12 @@ const Stories = ({ props }) => {
 
       {/* Modal hiển thị story */}
       <Modal visible={isModalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
+        <SafeAreaView style={styles.modalContainer}>
           <Image
             source={{ uri: currentStory?.story_url }}
             style={styles.modalStory}
           />
+
           <View style={styles.modalFooter}>
             <View style={styles.reactionsContainer}>
               {/* Các biểu tượng cảm xúc ở đây */}
@@ -119,17 +135,17 @@ const Stories = ({ props }) => {
                   <Text style={{ fontSize: 20, padding: 5 }}>😍</Text>
                 </TouchableOpacity>
               </Animatable.View>
-              <Animatable.View animation="bounceIn" duration={500} delay={200}>
+              <Animatable.View animation="bounceIn" duration={500}>
                 <TouchableOpacity>
                   <Text style={{ fontSize: 20, padding: 5 }}>❤️</Text>
                 </TouchableOpacity>
               </Animatable.View>
-              <Animatable.View animation="bounceIn" duration={500} delay={400}>
+              <Animatable.View animation="bounceIn" duration={500}>
                 <TouchableOpacity>
                   <Text style={{ fontSize: 20, padding: 5 }}>👍</Text>
                 </TouchableOpacity>
               </Animatable.View>
-              <Animatable.View animation="bounceIn" duration={500} delay={600}>
+              <Animatable.View animation="bounceIn" duration={500}>
                 <TouchableOpacity>
                   <Text style={{ fontSize: 20, padding: 5 }}>😂</Text>
                 </TouchableOpacity>
@@ -146,7 +162,6 @@ const Stories = ({ props }) => {
             <Animatable.View
               animation="bounceIn"
               duration={500}
-              delay={800}
               style={styles.commentButton}
             >
               <TouchableOpacity onPress={handleComment}>
@@ -154,6 +169,7 @@ const Stories = ({ props }) => {
               </TouchableOpacity>
             </Animatable.View>
           </View>
+          <ProgressBar progress={progress} onComplete={handleStoryComplete} />
 
           {/* Nút đóng modal */}
           <TouchableOpacity
@@ -162,9 +178,9 @@ const Stories = ({ props }) => {
           >
             <Text style={{ color: "orange", fontWeight: "bold" }}>Close</Text>
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 

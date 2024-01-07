@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   },
   loggedUser: {
     alignSelf: "flex-end",
-    backgroundColor: COLORS.global.lightBlue400,
+    backgroundColor: COLORS.global.lightOrange600,
   },
   previousUser: (isLoggedUser = false) => {
     return isLoggedUser

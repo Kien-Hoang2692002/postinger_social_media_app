@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const CreateStory = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
-      // Yêu cầu quyền truy cập vào thư viện ảnh khi mở ứng dụng
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         alert("Sorry, we need camera roll permissions to make this work!");
       } else {
-        // Chọn ảnh ngay sau khi có quyền truy cập
         selectImage();
       }
     })();
@@ -22,7 +23,6 @@ const CreateStory = () => {
 
   const selectImage = async () => {
     try {
-      // Open the image library to select an image
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: false,
@@ -31,9 +31,7 @@ const CreateStory = () => {
       });
 
       if (!result.canceled) {
-        // Use the first asset from the assets array
         const selectedAsset = result.assets[0];
-        // Save the URI of the selected image and update the state
         setSelectedImage(selectedAsset.uri);
       }
     } catch (error) {
@@ -42,29 +40,29 @@ const CreateStory = () => {
   };
 
   const handlePost = () => {
-    console.log("Post button pressed!");
+    alert("Post button pressed!");
+  };
+
+  const handleBack = () => {
+    navigation.goBack();
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       {selectedImage && (
         <>
           <Image
             source={{ uri: selectedImage }}
-            style={{ width: "100%", height: "100%" }}
+            style={{ flex: 1, width: "100%", height: "100%" }}
           />
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              bottom: 20,
-              alignSelf: "center",
-              backgroundColor: "orange",
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              borderRadius: 5,
-            }}
-            onPress={handlePost}
-          >
+
+          {/* Nút Back */}
+          <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+            <AntDesign name="arrowleft" size={26} color="white" />
+          </TouchableOpacity>
+
+          {/* Nút Post */}
+          <TouchableOpacity style={styles.postButton} onPress={handlePost}>
             <Text style={{ color: "white" }}>Post</Text>
           </TouchableOpacity>
         </>
@@ -72,5 +70,29 @@ const CreateStory = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  backButton: {
+    position: "absolute",
+    top: 30,
+    left: 10,
+    zIndex: 1,
+    padding: 10,
+  },
+
+  postButton: {
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
+    backgroundColor: "orange",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    zIndex: 1,
+  },
+});
 
 export default CreateStory;
