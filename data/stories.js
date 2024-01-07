@@ -2,13 +2,6 @@ import { USERS } from "./users";
 
 export const STORIES = [
   {
-    id: 0,
-    user_id: USERS[0].id,
-    user_image: USERS[0].image,
-    story_url:
-      "https://img.freepik.com/free-photo/gray-wall-textures-background_74190-4389.jpg",
-  },
-  {
     id: 1,
     user_id: USERS[0].id,
     user_image: USERS[0].image,

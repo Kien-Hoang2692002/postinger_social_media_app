@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, Image } from "react-native";
+import { View, Text, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const App = () => {
+const NewPostScreen = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedMedia, setSelectedMedia] = useState(null);
 
@@ -32,8 +32,12 @@ const App = () => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
-      setSelectedImage(result.uri);
+    if (!result.canceled) {
+      const selectedImageAsset = result.assets[0];
+      const imageUri = selectedImageAsset.uri;
+
+      setSelectedImage(imageUri);
+      navigation.navigate("PreviewPost", { imageUri });
     }
   };
 
@@ -52,26 +56,53 @@ const App = () => {
       console.log("Media picking cancelled");
     }
   };
-  return (
-    <SafeAreaView>
-      <Text style={{ fontSize: 20 }}>Select Photo and Media</Text>
-      <Button title="Pick an Image" onPress={handleImagePicker} />
-      {selectedImage && (
-        <Image
-          source={{ uri: selectedImage }}
-          style={{ width: 200, height: 200 }}
-        />
-      )}
 
-      <Button title="Pick a Media" onPress={handleMediaPicker} />
-      {selectedMedia && (
-        <View>
-          <Text style={{ fontSize: 16 }}>Selected Media:</Text>
-          <Text>{selectedMedia}</Text>
-        </View>
-      )}
+  const createThreeButtonAlert = () =>
+    Alert.alert(
+      "Thông báo",
+      "Xin lỗi chức năng này chúng tôi đang phát triển thêm !",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ]
+    );
+  return (
+    <SafeAreaView style={{ marginHorizontal: 5, marginTop: 10 }}>
+      <Text style={{ fontSize: 20, alignSelf: "center" }}>
+        Select Photo and Media
+      </Text>
+      <View style={{ marginVertical: 10 }}>
+        <Button
+          color={"orange"}
+          title="Pick an Image"
+          onPress={handleImagePicker}
+        />
+        {selectedImage && (
+          <Image
+            source={{ uri: selectedImage }}
+            style={{ width: "100%", height: 250, marginTop: 5 }}
+          />
+        )}
+      </View>
+
+      <View style={{ marginVertical: 10 }}>
+        <Button
+          title="Pick a Media"
+          onPress={createThreeButtonAlert}
+          color={"orange"}
+        />
+        {selectedMedia && (
+          <View>
+            <Text style={{ fontSize: 16 }}>Selected Media:</Text>
+            <Text>{selectedMedia}</Text>
+          </View>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
 
-export default App;
+export default NewPostScreen;

@@ -15,7 +15,7 @@ const Home = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header navigate={navigate} goBack={goBack} />
-      <Stories />
+      <Stories props={props} />
       <View style={{ flex: 80 }}>
         <ScrollView>
           <View style={{ flex: 60 }}>

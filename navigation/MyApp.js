@@ -7,12 +7,14 @@ import {
   Notifications,
   CommentViewScreen,
   NewPostScreen,
+  PreviewPost,
+  PreviewLocation,
+  CreateStory,
 } from "../screens";
 import MessageChat from "../components/messages/MessageChat";
 import UiTab from "./UiTab";
 import { useSelector } from "react-redux";
 import { getLanguage } from "../redux/slices/Translation";
-import { locales } from "../locales/Locales";
 const Stack = createNativeStackNavigator();
 
 const MyApp = (props) => {
@@ -40,6 +42,11 @@ const MyApp = (props) => {
         />
         {/* Add new post */}
         <Stack.Screen name="NewPostScreen" component={NewPostScreen} />
+        <Stack.Screen name="PreviewPost" component={PreviewPost} />
+        <Stack.Screen name="PreviewLocation" component={PreviewLocation} />
+        {/* Add story */}
+        <Stack.Screen name="CreateStory" component={CreateStory} />
+
         <Stack.Screen name="UiTab" component={UiTab} />
       </Stack.Navigator>
     </NavigationContainer>

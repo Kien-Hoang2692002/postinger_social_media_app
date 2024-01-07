@@ -11,11 +11,11 @@ export const USERS = [
     users: "Jonathan",
     image:
       "https://www.pngitem.com/pimgs/m/80-800194_transparent-users-icon-png-flat-user-icon-png.png",
-    job: "Photograper",
+    job: "Influencer",
   },
   {
     id: 3,
-    users: "Jessica2",
+    users: "Hoàng Văn Kiên",
     image:
       "https://anhcuoiviet.vn/wp-content/uploads/2022/11/avatar-dep-dang-yeu-nu-5.jpg",
     job: "Photograper",
@@ -25,25 +25,25 @@ export const USERS = [
     users: "Jonathan2",
     image:
       "https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/07/avatar-dep-10-1.jpg",
-    job: "Photograper",
+    job: "Animator",
   },
   {
     id: 5,
-    users: "Jessica123456789",
+    users: "Thor",
     image:
       "https://vnn-imgs-f.vgcloud.vn/2019/06/27/16/lamborghini-urus-mau-vang-doc-la-nhat-viet-nam.jpg",
-    job: "Photograper",
+    job: "Student",
   },
   {
     id: 6,
-    users: "Jessica24",
+    users: "Iron Man",
     image:
       "https://i.pinimg.com/originals/c3/8d/cb/c38dcba98628dbefb83d961ed31bd77d.jpg",
     job: "Photograper",
   },
   {
     id: 7,
-    users: "Jessica123456789",
+    users: "Hulk",
     image:
       "https://hoatuoishop.com/wp-content/uploads/2017/08/y-nghia-hong-vang.jpg",
     job: "Photograper",
@@ -64,7 +64,7 @@ export const USERS = [
   },
   {
     id: 10,
-    users: "Vịt vàng2",
+    users: "Anh hùng xạ điêu",
     image:
       "https://duatin247.com/wp-content/uploads/2021/08/anh-viet-cute-1-2.png",
     job: "Rapper",

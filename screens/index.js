@@ -7,6 +7,9 @@ import Message from "./Message";
 import Profile from "./Profile";
 import CommentViewScreen from "./CommentViewScreen";
 import NewPostScreen from "./AddPostScreens/NewPostScreen";
+import PreviewPost from "./AddPostScreens/PreviewPost";
+import PreviewLocation from "./AddPostScreens/PreviewLocation";
+import CreateStory from "./CreateStory";
 
 export {
   Home,
@@ -18,4 +21,7 @@ export {
   Message,
   Profile,
   CommentViewScreen,
+  PreviewPost,
+  PreviewLocation,
+  CreateStory,
 };
