@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const Header = () => {
+const Header = (props) => {
+  const { goBack, navigate } = props;
   return (
     <View style={styles.container}>
       <TouchableOpacity>
@@ -8,7 +9,7 @@ const Header = () => {
       </TouchableOpacity>
 
       <View style={styles.iconContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate("Notifications")}>
           <View style={styles.unreadBadge}>
             <Text style={styles.unreadBadgeText}>10</Text>
           </View>

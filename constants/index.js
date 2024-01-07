@@ -1,3 +1,3 @@
 import colors from "./colors";
-import bottomTabsIcon from "./bottomTabsIcon";
-export { colors, bottomTabsIcon };
+import fontSizes from "./fontSizes";
+export { colors, fontSizes };

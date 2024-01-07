@@ -1,7 +1,6 @@
 import {
   FlatList,
   TextInput,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -10,10 +9,10 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
-import BottomTabs from "../components/home/BottomTabs";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { USERS } from "../data/users";
-import { bottomTabsIcon, colors } from "../constants";
+import { colors } from "../constants";
 
 const Search = () => {
   const [hastags, setHastags] = useState([
@@ -62,7 +61,7 @@ const Search = () => {
             backgroundColor: "gray",
             borderRadius: 5,
             flex: 1,
-            opacity: 0.5,
+            opacity: 0.4,
             paddingHorizontal: 40,
           }}
         />
@@ -106,7 +105,7 @@ const Search = () => {
         <FlatList
           numColumns={2}
           data={USERS}
-          keyExtractor={(item) => item.users}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <Image
               style={{
@@ -120,7 +119,6 @@ const Search = () => {
           )}
         />
       </View>
-      <BottomTabs icons={bottomTabsIcon} />
     </SafeAreaView>
   );
 };
@@ -128,7 +126,7 @@ const Search = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 100,
-    marginTop: 30,
+    marginTop: 20,
     marginHorizontal: 10,
   },
 });

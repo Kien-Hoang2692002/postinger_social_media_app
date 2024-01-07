@@ -11,12 +11,24 @@ export const POSTS = [
     job: USERS[0].job,
     comments: [
       {
-        user: "thequzman",
+        user: USERS[1].users,
+        image: USERS[1].image,
         comment: "Wow",
       },
       {
-        user: "Jonathan123",
+        user: USERS[2].users,
+        image: USERS[2].image,
         comment: "Đắng cấp đấy",
+      },
+      {
+        user: USERS[3].users,
+        image: USERS[3].image,
+        comment: "Đắng cấp đấy",
+      },
+      {
+        user: USERS[4].users,
+        image: USERS[4].image,
+        comment: "Thật tuyệt vời",
       },
     ],
     time: "2h ago",
@@ -32,7 +44,8 @@ export const POSTS = [
     profile_picture: USERS[1].image,
     comments: [
       {
-        user: "thequzman",
+        user: USERS[1].users,
+        image: USERS[1].image,
         comment: "Quá tuyệt vời",
       },
     ],
@@ -49,10 +62,12 @@ export const POSTS = [
     comments: [
       {
         user: "thequzman",
+        image: USERS[3].image,
         comment: "Dị ứng với hải sản, cụ thể là trai.",
       },
       {
         user: USERS[3].users,
+        image: USERS[4].image,
         comment:
           "Nói về anh có khi không phải là tài và giỏi.Nhưng bài toán khó như em, anh vẫn tìm tòi và giải.",
       },

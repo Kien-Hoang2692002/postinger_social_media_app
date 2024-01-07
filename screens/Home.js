@@ -1,16 +1,20 @@
-import { SafeAreaView, StyleSheet, ScrollView, View } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 
 import Header from "../components/home/Header";
 import Stories from "../components/home/Stories";
 import Post from "../components/home/Post";
-import BottomTabs from "../components/home/BottomTabs";
-import { bottomTabsIcon } from "../constants";
 import { POSTS } from "../data/posts";
 
-const Home = () => {
+import { SafeAreaView } from "react-native-safe-area-context";
+
+const Home = (props) => {
+  //navigation
+  const { navigation, route } = props;
+  //functions of navigate to/back
+  const { navigate, goBack } = navigation;
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header navigate={navigate} goBack={goBack} />
       <Stories />
       <View style={{ flex: 80 }}>
         <ScrollView>
@@ -21,7 +25,6 @@ const Home = () => {
           </View>
         </ScrollView>
       </View>
-      <BottomTabs icons={bottomTabsIcon} />
     </SafeAreaView>
   );
 };
@@ -30,7 +33,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 100,
-    marginTop: 40,
   },
 });
 

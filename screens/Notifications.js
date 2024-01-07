@@ -1,8 +1,12 @@
-import { Text, View, ScrollView, Image } from "react-native";
+import { TouchableOpacity, Text, View, ScrollView, Image } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { NOTIFICATIONS } from "../data/notifications";
 
-const Notifications = () => {
+const Notifications = (props) => {
+  //navigation
+  const { navigation, route } = props;
+  //functions of navigate to/back
+  const { goBack } = navigation;
   return (
     <View
       style={{
@@ -19,7 +23,9 @@ const Notifications = () => {
           marginBottom: 5,
         }}
       >
-        <AntDesign name="arrowleft" size={30} color="black" />
+        <TouchableOpacity onPress={() => goBack()}>
+          <AntDesign name="arrowleft" size={30} color="black" />
+        </TouchableOpacity>
         <Text
           style={{
             padding: 4,
