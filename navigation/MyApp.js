@@ -10,6 +10,8 @@ import {
   PreviewPost,
   PreviewLocation,
   CreateStory,
+  Settings,
+  Profile,
 } from "../screens";
 import MessageChat from "../components/messages/MessageChat";
 import UiTab from "./UiTab";
@@ -48,6 +50,8 @@ const MyApp = (props) => {
         <Stack.Screen name="CreateStory" component={CreateStory} />
 
         <Stack.Screen name="UiTab" component={UiTab} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -51,7 +51,7 @@ const Stories = ({ props }) => {
 
   const handleComment = () => {
     // Xử lý bình luận ở đây, bạn có thể gửi bình luận lên server hoặc làm hành động khác
-    console.log("Comment:", comment);
+    console.log("Comment story:", comment);
     // Đặt trạng thái comment về rỗng sau khi xử lý
     setComment("");
   };

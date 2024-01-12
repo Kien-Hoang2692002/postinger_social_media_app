@@ -2,7 +2,8 @@ import { TouchableOpacity, View, Text } from "react-native";
 import { colors } from "../../constants";
 
 const UiButton = (props) => {
-  const { title, color } = props;
+  const { title, color, onPress } = props;
+
   return (
     <TouchableOpacity
       style={{
@@ -18,6 +19,7 @@ const UiButton = (props) => {
         backgroundColor: color ? color : colors.inactive,
         opacity: 0.8,
       }}
+      onPress={onPress}
     >
       <Text
         style={{

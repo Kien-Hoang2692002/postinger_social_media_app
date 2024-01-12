@@ -1,16 +1,21 @@
-import { useState } from "react";
-import {
-  TouchableOpacity,
-  Text,
-  View,
-  Image,
-  TextInput,
-  KeyboardAvoidingView,
-} from "react-native";
+import { useState, useEffect } from "react";
+import { TouchableOpacity, Text, View, Image, TextInput } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 import { isValidPassword, isValidEmail } from "../utils/Validations";
 import { colors, fontSizes } from "../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import {
+  onAuthStateChanged,
+  firebaseDatabaseRef,
+  firebaseSet,
+  firebaseDatabase,
+  auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+} from "../firebase/firebase";
 
 const Login = (props) => {
   //state for validating
@@ -18,8 +23,8 @@ const Login = (props) => {
   const [errorPassword, setErrorPassword] = useState("");
 
   //state to store email/password
-  const [email, setEmail] = useState("kien@gmail.com");
-  const [password, setPassword] = useState("1234567");
+  const [email, setEmail] = useState("hoatruongquay@gmail.com");
+  const [password, setPassword] = useState("123456");
 
   const isValidationOK = () =>
     email.length > 0 &&
@@ -31,6 +36,29 @@ const Login = (props) => {
   const { navigation, route } = props;
   //functions of navigate to/back
   const { navigate } = navigation;
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (responseUser) => {
+      //debugger;
+      if (responseUser) {
+        //save data to Firebase
+        let user = {
+          userId: responseUser.uid,
+          email: responseUser.email,
+          emailVerified: responseUser.emailVerified,
+          accessToken: responseUser.accessToken,
+        };
+        console.log("user:", user);
+        firebaseSet(
+          firebaseDatabaseRef(firebaseDatabase, `users/${responseUser.uid}`),
+          user
+        );
+        //save user to local storage
+        AsyncStorage.setItem("user", JSON.stringify(user));
+        navigate("UiTab");
+      }
+    });
+  });
 
   return (
     <View
@@ -168,10 +196,17 @@ const Login = (props) => {
       >
         <TouchableOpacity
           disabled={isValidationOK() == false}
-          onPress={
-            //() => alert(`Email = ${email}, password = ${password}`)
-            () => navigate("UiTab")
-          }
+          onPress={() => {
+            //alert(`Email = ${email}, password = ${password}`)
+            signInWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                const user = userCredential.user;
+                navigate("UiTab");
+              })
+              .catch((error) => {
+                alert(`Cannot signin, error: ${error.message}`);
+              });
+          }}
           style={{
             backgroundColor:
               isValidationOK() == true ? colors.primary : colors.inactive,

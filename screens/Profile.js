@@ -5,13 +5,23 @@ import UiButton from "../components/profile/UiButton";
 import { colors, fontSizes } from "../constants";
 import { PROFILES } from "../data/profiles";
 
-const Profile = () => {
+const Profile = (props) => {
   const [profile, setProfile] = useState(PROFILES[0]);
   const isUserLoggedIn = true;
 
   if (!profile) {
     return <Text>Loading...</Text>;
   }
+
+  //navigation
+  const { navigation, route } = props;
+  //functions of navigate to/back
+  const { navigate, goBack } = navigation;
+
+  const handleEditProfile = () => {
+    // Xử lý khi nút được bấm
+    navigation.navigate("Settings");
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -144,7 +154,10 @@ const Profile = () => {
               >
                 {isUserLoggedIn ? (
                   <>
-                    <UiButton title={"Edit Profile"} />
+                    <UiButton
+                      title={"Edit Profile"}
+                      onPress={handleEditProfile}
+                    />
                     <UiButton title={"Share Profile"} />
                   </>
                 ) : (

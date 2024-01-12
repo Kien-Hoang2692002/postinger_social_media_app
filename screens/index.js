@@ -5,6 +5,7 @@ import Notifications from "./Notifications";
 import Search from "./Search";
 import Message from "./Message";
 import Profile from "./Profile";
+import Settings from "./Settings";
 import CommentViewScreen from "./CommentViewScreen";
 import NewPostScreen from "./AddPostScreens/NewPostScreen";
 import PreviewPost from "./AddPostScreens/PreviewPost";
@@ -20,6 +21,7 @@ export {
   NewPostScreen,
   Message,
   Profile,
+  Settings,
   CommentViewScreen,
   PreviewPost,
   PreviewLocation,

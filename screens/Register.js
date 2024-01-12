@@ -11,21 +11,33 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { isValidPassword, isValidEmail } from "../utils/Validations";
 import { colors, icons, fontSizes } from "../constants";
+import {
+  auth,
+  firebaseDatabase,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "../firebase/firebase";
 
-const Register = () => {
+const Register = (props) => {
   //state for validating
   const [errorEmail, setErrorEmail] = useState("");
   const [errorPassword, setErrorPassword] = useState("");
 
   //state to store email/password
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hoatruongquay@gmail.com");
+  const [password, setPassword] = useState("123456");
+  const [retypePassword, setRetypePassword] = useState("123456");
 
   const isValidationOK = () =>
     email.length > 0 &&
     password.length > 0 &&
     isValidEmail(email) == true &&
-    isValidPassword(password) == true;
+    isValidPassword(password) == true &&
+    password == retypePassword;
+  //navigation
+  const { navigation, route } = props;
+  //functions of navigate to/back
+  const { navigate, goBack } = navigation;
 
   return (
     <KeyboardAvoidingView
@@ -92,6 +104,7 @@ const Register = () => {
               setEmail(text);
             }}
             placeholder="Enter your email address"
+            value={email}
             placeholderTextColor={colors.placeholder}
           />
           <View
@@ -136,6 +149,7 @@ const Register = () => {
             }}
             secureTextEntry={true}
             placeholder="Enter your password"
+            value={password}
             placeholderTextColor={colors.placeholder}
           />
           <View
@@ -176,10 +190,11 @@ const Register = () => {
                   ? ""
                   : "Password must be at least 3 characters"
               );
-              setPassword(text);
+              setRetypePassword(text);
             }}
             secureTextEntry={true}
             placeholder="Re-Enter your password"
+            value={retypePassword}
             placeholderTextColor={colors.placeholder}
           />
           <View
@@ -204,10 +219,23 @@ const Register = () => {
 
         <TouchableOpacity
           disabled={isValidationOK() == false}
-          onPress={() => alert(`Email = ${email}, password = ${password}`)}
+          onPress={() => {
+            //alert(`Email = ${email}, password = ${password}`)
+            createUserWithEmailAndPassword(auth, email, password)
+              .then((userCredential) => {
+                const user = userCredential.user;
+                sendEmailVerification(user).then(() => {
+                  console.log("Email verification sent");
+                });
+                navigate("UiTab");
+              })
+              .catch((error) => {
+                alert(`Cannot signin, error: ${error.message}`);
+              });
+          }}
           style={{
             backgroundColor:
-              isValidationOK() == true ? colors.primary : colors.inactive,
+              isValidationOK() == true ? "orange" : colors.inactive,
             justifyContent: "center",
             alignItems: "center",
             width: "60%",
