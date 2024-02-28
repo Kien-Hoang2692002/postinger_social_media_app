@@ -1,10 +1,9 @@
-
 # Postinger_social_media_app
 
 Decription: App for share story, post video, reaction, chatting,...
 
 ## Demo: 
-    - Drive : https://drive.google.com/drive/folders/1Mo7OO7lUiIPgPnMYwK2fRpbCxjhb3eFW 
+[Drive](https://drive.google.com/drive/folders/1Mo7OO7lUiIPgPnMYwK2fRpbCxjhb3eFW)
 
 ## Technology
     - Expo (Expo Go)
